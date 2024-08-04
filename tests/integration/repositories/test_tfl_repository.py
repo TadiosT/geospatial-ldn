@@ -4,7 +4,6 @@ from repositories.tfl_repository import TfLRepository
 
 
 class TestTfLRepository(TestCase):
-    #TODO: Fix TfL tests
     under_test = TfLRepository()
 
     @classmethod
@@ -20,8 +19,9 @@ class TestTfLRepository(TestCase):
 
     def test_data_returns_expected_modes(self):
         expected_consistent_keys = {"cable-car", "dlr", "national-rail", "overground", "replacement-bus", "river-bus",
-                                    "river-tour", "tflrail", "tram", "tube"}
+                                    "river-tour", "tflrail", "tram", "tube", "elizabeth-line"}
         actual_consistent_keys = {mode["mode"] for mode in self.result}
+        print(actual_consistent_keys)
 
         self.assertTrue(actual_consistent_keys.issubset(expected_consistent_keys))
 
