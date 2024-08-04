@@ -2,6 +2,8 @@ from unittest import TestCase
 
 from repositories.police_uk_repository import PoliceUKRepository
 from services.geospatial_service import GeospatialService
+import datetime
+from dateutil.relativedelta import relativedelta
 
 
 class TestPoliceUKRepository(TestCase):
@@ -27,7 +29,8 @@ class TestPoliceUKRepository(TestCase):
                                                     "Vehicle crime": "vehicle-crime",
                                                     "Violent and sexual offences": "violent-crime",
                                                     "Other crime": "other-crime"},
-                                                   "2020-12",
+                                                   str((datetime.date.today() - relativedelta(months=5)).strftime("%Y"
+                                                                                                                  "-%m")),
                                                    cls.geo_service.borough_bounds)
 
     def test_get_categories_returns_list_of_dicts(self):

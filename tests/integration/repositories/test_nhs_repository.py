@@ -14,6 +14,7 @@ class TestNHSRepository(TestCase):
         cls.result = cls.under_test.get_data
 
     def test_get_data_returns_list_of_SQLModel_objects(self):
+        #TODO: Fix this test
         bool_list = []
         expected_value = SQLModel
         for org in self.organisations:

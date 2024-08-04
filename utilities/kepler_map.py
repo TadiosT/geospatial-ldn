@@ -2,7 +2,7 @@ import geopandas as gpd
 from keplergl import KeplerGl
 
 from config import Config
-
+#TODO: Fix the map
 
 class Map:
     config = Config()

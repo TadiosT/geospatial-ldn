@@ -44,7 +44,7 @@ class PoliceUKService(BaseService):
         :return: list of dates represented as strings
         """
         today = datetime.date.today()
-        end_date = today - relativedelta(months=1)
+        end_date = today - relativedelta(months=2)
         start_date = end_date - relativedelta(years=2, months=11)
         dates = pd.date_range(start=start_date, end=end_date, freq="1M").strftime("%Y-%m")
         dates = [str(date) for date in dates]

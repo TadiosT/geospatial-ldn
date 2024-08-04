@@ -1,7 +1,6 @@
 from typing import List
 
 import geopandas as gpd
-import requests
 from requests import ConnectionError
 
 from repositories.base_repository import BaseRepository
