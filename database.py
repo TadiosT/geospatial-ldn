@@ -1,6 +1,5 @@
-import pandas as pd
 from sqlmodel import create_engine, SQLModel, Session, engine
-
+import pandas as pd
 from models import nhs_models
 
 
@@ -45,7 +44,7 @@ def insert_objects(config) -> None:
     """
     db_engine = create_db_engine(config)
     for model, nhs_file_path in model_paths(config).items():
-        df = pd.read_csv(nhs_file_path, sep="|", encoding="ISO-8859-1", on_bad_lines="skip")
+        df = pd.read_csv(nhs_file_path, sep='|', encoding='ISO-8859-1', on_bad_lines='skip')
         sql_models = [model(**row) for row in df.to_dict("records")]
         with Session(db_engine) as session:
             session.bulk_save_objects(sql_models)

@@ -58,7 +58,7 @@ class AirQualityService(BaseService):
 
         return list_of_dicts
 
-    @st.cache(allow_output_mutation=True)
+    @st.cache_data()
     def _parse_data_from_site(self, result: dict, site: dict, local_authority: dict) -> dict:
         
         species = site["Species"]

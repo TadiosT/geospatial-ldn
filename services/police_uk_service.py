@@ -63,8 +63,8 @@ class PoliceUKService(BaseService):
         counts = counts.rename(columns={"size": "Number of offences"}).set_index("Borough")
         return counts
 
-    @st.cache(allow_output_mutation=True)
-    def get_gdf(self, borough: str, cat_choice: str, dict_of_categories: dict, date: str, bounds: gpd.GeoDataFrame) -> \
+    @st.cache_data()
+    def get_gdf(_self, borough: str, cat_choice: str, dict_of_categories: dict, date: str, bounds: gpd.GeoDataFrame) -> \
             gpd.GeoDataFrame:
         """Gets data from the repository class, cleans the data and returns a gpd.GeoDataFrame object
         :param dict_of_categories: dict storing the category names and their corresponding url inputs
@@ -75,7 +75,7 @@ class PoliceUKService(BaseService):
         :return: a gpd.GeoDataFrame object storing the data for crimes in the bounds(QUADRILATERAL) of a chosen
         borough
         """
-        data = self.repository.get_data(borough, cat_choice, dict_of_categories, date, bounds)
+        data = _self.repository.get_data(borough, cat_choice, dict_of_categories, date, bounds)
         if not data:
             raise RuntimeError("No data for your chosen parameters.")
         crime_df = pd.DataFrame(data)

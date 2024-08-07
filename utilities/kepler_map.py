@@ -2,11 +2,12 @@ import geopandas as gpd
 from keplergl import KeplerGl
 
 from config import Config
-#TODO: Fix the map
+
 
 class Map:
     config = Config()
 
+    # TODO: Fix the map
     @staticmethod
     def get_kepler_map(gdf: gpd.GeoDataFrame, name: str, hover_cols: tuple = tuple("Borough"),
                        config_lat: int = config.LDN_CENTRE_LAT, config_lng: int = config.LDN_CENTRE_LNG,
@@ -15,7 +16,7 @@ class Map:
         Creates a map of geometries from a gpd.GeoDataFrame object
         :param gdf: a gpd.GeoDataFrame object storing the geometries that you need to map
         :param name: chosen name for the map
-        :param hover_cols: names of columns in the
+        :param hover_cols: names of columns in the gdf that appear when you hover over a point on the map
         :param config_lat: a latitude value that is used for the centre the map
         :param config_lng: a longitude value that is used for the centre of the map
         :param zoom: integer value storing the zoom
