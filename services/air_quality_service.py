@@ -41,15 +41,18 @@ class AirQualityService(BaseService):
         return result
 
     @staticmethod
-    @st.cache()
-    def extract_sensor_data(gdf: gpd.GeoDataFrame, sensor_name: str) -> List[dict]:
+    @st.cache_data()
+    def extract_sensor_data(_gdf: gpd.GeoDataFrame, sensor_name: str) -> List[dict]:
         """Extracts sensor data based on a sensor chosen by a user
-        :param gdf: a gpd.GeoDataFrame object storing the air quality data for London
+        :param _gdf: a gpd.GeoDataFrame object storing the air quality data for London
         :param sensor_name: name of the sensor chosen by the user
         :return: a list of dictionaries storing
         """
-        data = gdf[gdf["SiteName"] == sensor_name]
-        species = data["Species"].iloc[0].split("}")
+        data = _gdf[_gdf["SiteName"] == sensor_name]
+        if not data.empty:
+            species = data["Species"].iloc[0].split("}")
+        else:
+            species = pd.DataFrame()
         list_of_dicts = []
 
         for i in range(len(species)):
@@ -57,6 +60,8 @@ class AirQualityService(BaseService):
         list_of_dicts = [ast.literal_eval(char) for char in list_of_dicts[0:-1]]
 
         return list_of_dicts
+
+
 
     @st.cache_data()
     def _parse_data_from_site(_self, result: dict, site: dict, local_authority: dict) -> dict:

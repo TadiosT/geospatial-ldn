@@ -36,7 +36,7 @@ class AirQualityController(BaseController):
             st.error(e)
 
     @staticmethod
-    @st.cache(suppress_st_warning=True)
+    @st.cache_data()
     def return_sensor_metrics(data_dict: List[dict]):
         """
         Iterates of a dictionary storing the air quality data at each sensor in the borough chosen and returns it to
