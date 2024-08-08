@@ -52,13 +52,13 @@ class PoliceUKService(BaseService):
         return dates
 
     @staticmethod
-    def get_table(gdf: gpd.GeoDataFrame) -> pd.DataFrame:
+    def get_table(df: pd.DataFrame) -> pd.DataFrame:
         """Gets a gpd.GeoDataFrame object storing the crime locations and returns a pd.DataFrame object storing the
         number of offences of each crime type
-        :param gdf: gpd.GeoDataFrame object storing the crime locations
+        :param df: gpd.GeoDataFrame object storing the crime locations
         :return: a pd.DataFrame object storing the number of offences of each crime type
         """
-        df = gdf[["Borough", "category"]]
+        df = df[["Borough", "category"]]
         counts = df.groupby(df.columns.tolist(), as_index=False).size()
         counts = counts.rename(columns={"size": "Number of offences"}).set_index("Borough")
         return counts
@@ -92,16 +92,3 @@ class PoliceUKService(BaseService):
         crime_categories = self.repository.get_categories(date)
         dict_of_categories = {k["name"]: k["url"] for k in crime_categories}
         return dict_of_categories
-
-    def get_bar_chart(self, gdf: gpd.GeoDataFrame, title: str, xlabel: str, ylabel: str) -> matplotlib.figure.Figure:
-        """Uses the table from the get_table method to make a bar chart of the crimes in each crime category
-        :param gdf: gpd.GeoDataFrame object storing the crimes in a chosen borough
-        :param title: title for the bar chart
-        :param xlabel: label for the x-axis
-        :param ylabel: label for the y-axis
-        :return: a streamlit.delta_generator.DeltaGenerator object which displays the bar chart
-        """
-        table = self.get_table(gdf).set_index("category")
-        fig, ax = plt.subplots()
-        table.plot(title=title, xlabel=xlabel, ylabel=ylabel, kind="barh", ax=ax)
-        return fig

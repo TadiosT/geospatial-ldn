@@ -15,7 +15,7 @@ class AirQualityService(BaseService):
         self.repository = AirQualityRepository()
 
     @staticmethod
-    @st.cache()
+    @st.cache_data()
     def _parse_data_from_sites(result: dict, site: Dict[str, str], species: dict, local_authority: dict) -> dict:
         """Creates a nested dictionary by cleaning data requested by the repository
         :param result: a dictionary storing running air quality data
@@ -59,35 +59,35 @@ class AirQualityService(BaseService):
         return list_of_dicts
 
     @st.cache_data()
-    def _parse_data_from_site(self, result: dict, site: dict, local_authority: dict) -> dict:
+    def _parse_data_from_site(_self, result: dict, site: dict, local_authority: dict) -> dict:
         
         species = site["Species"]
         parse_kwargs = dict(site=site, local_authority=local_authority)
         if isinstance(species, list):
             for single_species in species:
-                result = self._parse_data_from_sites(species=single_species, result=result, **parse_kwargs)
+                result = _self._parse_data_from_sites(species=single_species, result=result, **parse_kwargs)
         elif isinstance(species, dict):
-            result = self._parse_data_from_sites(species=species, result=result, **parse_kwargs)
+            result = _self._parse_data_from_sites(species=species, result=result, **parse_kwargs)
         else:
             raise RuntimeError("Type of species is not in expected types (list, dict)")
 
         return result
 
-    @st.cache()
-    def get_parsed_data(self) -> dict:
+    @st.cache_data()
+    def get_parsed_data(_self) -> dict:
         """Extracts required data from the air quality API
         :return: Air Quality data
         """
-        local_authority_air_quality = self.repository.get_data()
+        local_authority_air_quality = _self.repository.get_data()
         result_dict = dict()
         for local_authority_data in local_authority_air_quality:
             if "Site" in local_authority_data:
                 sites_data = local_authority_data["Site"]
                 if isinstance(sites_data, list):
                     for site_data in sites_data:
-                        self._parse_data_from_site(result_dict, site_data, local_authority_data)
+                        _self._parse_data_from_site(result_dict, site_data, local_authority_data)
                 elif isinstance(sites_data, dict):
-                    self._parse_data_from_site(result_dict, sites_data, local_authority_data)
+                    _self._parse_data_from_site(result_dict, sites_data, local_authority_data)
 
         return result_dict
 

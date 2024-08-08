@@ -47,8 +47,7 @@ class CrimeController(BaseController):
                 keplergl_static(crime_map)
                 self.logger.info("Map of crimes shown to a user")
                 st.subheader("Bar Chart")
-                st.pyplot(self.crime_service.get_bar_chart(crimes_in_borough, f"{borough}", "Crime Categories",
-                                                           "Frequency"))
+                st.bar_chart(self.crime_service.get_table(crimes_in_borough).set_index("category"))
                 self.logger.info("Bar chart displayed to the user")
 
         except RuntimeError as e:

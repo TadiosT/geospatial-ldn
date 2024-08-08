@@ -16,7 +16,7 @@ class Map:
         Creates a map of geometries from a gpd.GeoDataFrame object
         :param gdf: a gpd.GeoDataFrame object storing the geometries that you need to map
         :param name: chosen name for the map
-        :param hover_cols: names of columns in the gdf that appear when you hover over a point on the map
+        :param hover_cols: names of columns in the df that appear when you hover over a point on the map
         :param config_lat: a latitude value that is used for the centre the map
         :param config_lng: a longitude value that is used for the centre of the map
         :param zoom: integer value storing the zoom

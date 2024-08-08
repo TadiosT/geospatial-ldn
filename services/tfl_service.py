@@ -51,7 +51,7 @@ class TfLService(BaseService):
         """Spatial join of two gpd.GeoDataFrame objects which store all the tfl stops and all the geometries for
         boroughs in London
         :param borough: borough name
-        :param borough_gdf: gdf storing geometries for all boroughs in London
+        :param borough_gdf: df storing geometries for all boroughs in London
         :return: a gpd.GeoDataFrame object storing the tfl stop points in the requested borough
         """
         stations_in_borough = gpd.sjoin(self._get_gdf(), borough_gdf[borough_gdf["Borough"] == borough])
