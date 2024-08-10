@@ -54,7 +54,7 @@ class NHSService(BaseService):
         """
 
         df = self._get_df(organisation)
-        gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.Longitude, df.Latitude)).drop(
+        gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df["Longitude"], df["Latitude"])).drop(
             columns=["Longitude", "Latitude"])
         org_in_borough = gpd.sjoin(gdf, boroughs_gdf[boroughs_gdf["Borough"] == borough], predicate="within")
         org_in_borough = org_in_borough.set_crs(4326, allow_override=True)

@@ -44,6 +44,8 @@ class AirQualityController(BaseController):
         :param data_dict: a list of dictionaries storing air quality data at each sensor in the borough
         :return: a streamlit metric displaying air quality data
         """
+        columns = st.columns(len(data_dict))
 
-        for data in data_dict:
-            st.metric(label=data["SpeciesCode"], value=data["AirQualityBand"])
+        for i, data in enumerate(data_dict):
+            with columns[i]:
+                st.metric(label=data["SpeciesCode"], value=data["AirQualityBand"])

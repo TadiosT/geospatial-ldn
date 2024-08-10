@@ -21,12 +21,12 @@ class TfLService(BaseService):
         else:
             return f"{mins} min"
 
-    @st.cache
-    def _get_gdf(self) -> gpd.GeoDataFrame:
+    @st.cache_data()
+    def _get_gdf(_self) -> gpd.GeoDataFrame:
         """Gets list of dictionaries storing data for each stop point
         :return: a gpd.GeoDataFrame object storing the stop points
         """
-        stops = self.repository.get_data()
+        stops = _self.repository.get_data()
         stations = gpd.GeoDataFrame(stops, geometry="geometry")
         stations["line"] = stations.groupby("Name")["line"].transform(", ".join)
         stations = stations.drop_duplicates()

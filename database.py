@@ -13,7 +13,7 @@ def model_paths(config) -> dict:
         nhs_models.Pharmacy: config.nhs_path.joinpath("pharmacies", "pharmacies.csv"),
         nhs_models.PharmacyService: config.nhs_path.joinpath("pharmacies", "services.csv"),
         nhs_models.GP: config.nhs_path.joinpath("gp", "gp.csv"),
-        nhs_models.GPService: config.nhs_path.joinpath("gp", "services.csv"),
+        # nhs_models.GPService: config.nhs_path.joinpath("gp", "services.csv"),
         nhs_models.Dentist: config.nhs_path.joinpath("dentists", "dentists.csv")
     }
     return _model_paths

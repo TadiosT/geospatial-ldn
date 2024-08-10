@@ -17,7 +17,8 @@ class HealthController(BaseController):
             organisation_options = st.selectbox("Choose an NHS organisation: ", ["Hospitals", "Pharmacies", "GP",
                                                                                  "Dentists"])
             match organisation_options:
-                case "Pharmacies" | "GP":
+                case "Pharmacies":
+                    # TODO: Fix GP services csv issue
                     organisation = self.nhs_service.join_services(borough,
                                                                   organisation_options,
                                                                   self.geo_service.get_by_borough)
