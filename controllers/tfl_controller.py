@@ -18,7 +18,7 @@ class TfLController(BaseController):
             self.logger.info("Data received from the TfL API")
 
             tfl_map = self.folium_map.get_folium_map(borough_stations,
-                                                     hover_cols=["Borough", "Name", "mode", "line"],
+                                                     popup_cols=["Borough", "Name", "mode", "line"],
                                                      config_lat=self.geo_service.ldn_centroids[borough].y,
                                                      config_lng=self.geo_service.ldn_centroids[borough].x,
                                                      zoom=11)

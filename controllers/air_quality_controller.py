@@ -22,7 +22,7 @@ class AirQualityController(BaseController):
             st.subheader(f"Map of sensors in {borough}")
 
             air_quality_map = self.folium_map.get_folium_map(air_quality_borough_gdf,
-                                                             hover_cols=["Borough", "SiteName"],
+                                                             popup_cols=["Borough", "SiteName"],
                                                              config_lat=self.geo_service.ldn_centroids[borough].y,
                                                              config_lng=self.geo_service.ldn_centroids[borough].x,
                                                              zoom=11)

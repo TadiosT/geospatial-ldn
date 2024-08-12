@@ -29,7 +29,7 @@ class CrimeController(BaseController):
             table = self.crime_service.get_table(crimes_in_borough)
 
             crime_map = self.folium_map.get_folium_map(crimes_in_borough,
-                                                       hover_cols=["Borough", "category"],
+                                                       popup_cols=["Borough", "category"],
                                                        zoom=11,
                                                        config_lng=self.geo_service.ldn_centroids[borough].x,
                                                        config_lat=self.geo_service.ldn_centroids[borough].y)
