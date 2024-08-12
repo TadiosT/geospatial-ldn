@@ -7,7 +7,7 @@ from config import Config
 class Map:
     config = Config()
 
-    # TODO: Fix the map
+    # TODO: Replace with folium
     @staticmethod
     def get_kepler_map(gdf: gpd.GeoDataFrame, name: str, hover_cols: tuple = tuple("Borough"),
                        config_lat: int = config.LDN_CENTRE_LAT, config_lng: int = config.LDN_CENTRE_LNG,

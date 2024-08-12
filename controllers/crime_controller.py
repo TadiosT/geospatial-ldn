@@ -1,5 +1,9 @@
 import streamlit as st
 from streamlit_keplergl import keplergl_static
+import numpy as np
+import pandas as pd
+import folium
+from streamlit_folium import st_folium
 
 from controllers.base_controller import BaseController
 from services.police_uk_service import PoliceUKService
@@ -28,23 +32,24 @@ class CrimeController(BaseController):
             crimes_in_borough = crimes_in_borough.drop(["location_subtype", "context"], axis=1)
 
             table = self.crime_service.get_table(crimes_in_borough)
-            crime_map = self.map.get_kepler_map(crimes_in_borough,
-                                                "Crime",
-                                                hover_cols=("Borough", "category"),
-                                                zoom=10,
-                                                config_lng=self.geo_service.ldn_centroids[borough].x,
-                                                config_lat=self.geo_service.ldn_centroids[borough].y)
+
+            crime_map = self.folium_map.get_folium_map(crimes_in_borough,
+                                                       hover_cols=["Borough", "category"],
+                                                       zoom=11,
+                                                       config_lng=self.geo_service.ldn_centroids[borough].x,
+                                                       config_lat=self.geo_service.ldn_centroids[borough].y)
+            crime_map.save("crime_map.html")
 
             st.subheader(f"Crime data for {borough}")
             if category_choice != "All crime":
                 st.write(f"There were {int(table.iloc[0]['Number of offences'])} offences cited in {borough}")
                 st.subheader(f"Map of Crime in {borough}")
                 self.logger.info("Map of crimes shown to a user")
-                keplergl_static(crime_map)
+                st.components.v1.html(open('crime_map.html', 'r').read(), height=500, scrolling=True)
             else:
                 st.dataframe(table)
                 st.subheader(f"Map of Crime in {borough}")
-                keplergl_static(crime_map)
+                st.components.v1.html(open('crime_map.html', 'r').read(), height=500, scrolling=True)
                 self.logger.info("Map of crimes shown to a user")
                 st.subheader("Bar Chart")
                 st.bar_chart(self.crime_service.get_table(crimes_in_borough).set_index("category"))

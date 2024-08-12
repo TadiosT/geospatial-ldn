@@ -190,7 +190,6 @@ dependencies:
   - python-dateutil=2.9.0post0=py310hecd8cb5_2
   - python-fastjsonschema=2.16.2=py310hecd8cb5_0
   - python-json-logger=2.0.7=py310hecd8cb5_0
-  - python-tzdata=2023.3=pyhd3eb1b0_0
   - pytz=2024.1=py310hecd8cb5_0
   - pyyaml=6.0.1=py310h6c40b1e_0
   - pyzmq=25.1.2=py310hcec6c5f_0
@@ -224,7 +223,6 @@ dependencies:
   - tornado=6.4.1=py310h46256e1_0
   - traitlets=5.14.3=py310hecd8cb5_0
   - traittypes=0.2.1=py310hecd8cb5_0
-  - typing_extensions=4.11.0=py310hecd8cb5_0
   - unicodedata2=15.1.0=py310h6c40b1e_0
   - uriparser=0.9.7=h6c40b1e_0
   - urllib3=2.2.2=py310hecd8cb5_0
@@ -261,10 +259,12 @@ dependencies:
       - markdown-it-py==3.0.0
       - markupsafe==2.1.5
       - mdurl==0.1.2
+      - mypy-extensions==1.0.0
       - nbclassic==0.3.5
       - node==0.9.28
       - odict==1.8.0
       - pandas==1.4.0
+      - pathspec==0.12.1
       - platformdirs==4.2.2
       - plumber==1.6
       - prometheus-client==0.13.0
@@ -282,6 +282,7 @@ dependencies:
       - sqlalchemy==1.4.32
       - sqlalchemy2-stubs==0.0.2a20
       - sqlmodel==0.0.6
+      - streamlit-folium==0.22.0
       - tenacity==8.5.0
       - tomli==1.2.3
       - toolz==0.12.1
