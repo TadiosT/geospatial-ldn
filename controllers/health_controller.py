@@ -32,15 +32,17 @@ class HealthController(BaseController):
             else:
                 st.subheader(f"{organisation_options} in {borough}")
 
-            nhs_map = self.map.get_kepler_map(organisation, f"{organisation_options}",
-                                              hover_cols=(
-                                                  "OrganisationName", "Borough", "Services", "Address1", "Address2",
-                                                  "Address3", "City", "County", "Postcode", "Phone", "Email",
-                                                  "Website"),
-                                              config_lat=self.geo_service.ldn_centroids[borough].y,
-                                              config_lng=self.geo_service.ldn_centroids[borough].x,
-                                              zoom=10)
-            keplergl_static(nhs_map)
+            nhs_map = self.folium_map.get_folium_map(organisation,
+                                                     hover_cols=[
+                                                         "OrganisationName", "Borough", "Services", "Address1",
+                                                         "Address2",
+                                                         "Address3", "City", "County", "Postcode", "Phone", "Email",
+                                                         "Website"],
+                                                     config_lat=self.geo_service.ldn_centroids[borough].y,
+                                                     config_lng=self.geo_service.ldn_centroids[borough].x,
+                                                     zoom=11)
+            nhs_map.save("nhs_map.html")
+            st.components.v1.html(open('nhs_map.html', 'r').read(), height=500, scrolling=True)
             self.logger.info("Map of organisations shown to the user")
         except RuntimeError as e:
             st.error(e)
