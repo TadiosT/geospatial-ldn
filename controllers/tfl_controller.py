@@ -16,15 +16,16 @@ class TfLController(BaseController):
             st.title("TfL")
             borough_stations = self.tfl_service.get_by_borough(borough, self.geo_service.get_by_borough)
             self.logger.info("Data received from the TfL API")
-            stations_map = self.map.get_kepler_map(borough_stations,
-                                                   "TFL Stations",
-                                                   hover_cols=("Borough", "Name", "mode", "line"),
-                                                   config_lat=self.geo_service.ldn_centroids[borough].y,
-                                                   config_lng=self.geo_service.ldn_centroids[borough].x,
-                                                   zoom=10)
 
+            tfl_map = self.folium_map.get_folium_map(borough_stations,
+                                                     hover_cols=("Borough", "Name", "mode", "line"),
+                                                     config_lat=self.geo_service.ldn_centroids[borough].y,
+                                                     config_lng=self.geo_service.ldn_centroids[borough].x,
+                                                     zoom=11)
+
+            tfl_map.save("tfl_map.html")
             st.subheader(f"Map of stations in {borough}")
-            keplergl_static(stations_map)
+            st.components.v1.html(open('tfl_map.html', 'r').read(), height=500, scrolling=True)
             self.logger.info("Map of stations shown to the user")
             station_names = list(dict.fromkeys(borough_stations["Name"]))
 
