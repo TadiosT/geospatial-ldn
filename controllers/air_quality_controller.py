@@ -20,14 +20,16 @@ class AirQualityController(BaseController):
             self.logger.info("Air quality data retrieved from the API")
             air_quality_borough_gdf = self.service.get_by_borough(borough)
             st.subheader(f"Map of sensors in {borough}")
-            air_quality_map = self.map.get_kepler_map(air_quality_borough_gdf,
-                                                      "Air Quality Sensors",
-                                                      hover_cols=("Borough", "SiteName"),
-                                                      config_lat=self.geo_service.ldn_centroids[borough].y,
-                                                      config_lng=self.geo_service.ldn_centroids[borough].x,
-                                                      zoom=10)
-            keplergl_static(air_quality_map)
+
+            air_quality_map = self.folium_map.get_folium_map(air_quality_borough_gdf,
+                                                             hover_cols=["Borough", "SiteName"],
+                                                             config_lat=self.geo_service.ldn_centroids[borough].y,
+                                                             config_lng=self.geo_service.ldn_centroids[borough].x,
+                                                             zoom=11)
+            air_quality_map.save("air_quality_map.html")
+            st.components.v1.html(open('air_quality_map.html', 'r').read(), height=500, scrolling=True)
             self.logger.info("Map of sensors shown to the user")
+
             sensor_input = st.selectbox("Select a sensor", pd.Series.to_list(air_quality_borough_gdf["SiteName"]))
             sensor_data = self.service.extract_sensor_data(air_quality_borough_gdf, sensor_input)
             self.return_sensor_metrics(sensor_data)
@@ -44,6 +46,10 @@ class AirQualityController(BaseController):
         :param data_dict: a list of dictionaries storing air quality data at each sensor in the borough
         :return: a streamlit metric displaying air quality data
         """
+        if len(data_dict) == 0:
+            st.error("There is no sensor data for this borough currently")
+            return
+
         columns = st.columns(len(data_dict))
 
         for i, data in enumerate(data_dict):
