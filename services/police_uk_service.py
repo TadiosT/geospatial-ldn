@@ -2,8 +2,6 @@ import datetime
 from typing import List
 
 import geopandas as gpd
-import matplotlib
-import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
 from dateutil.relativedelta import relativedelta
