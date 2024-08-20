@@ -22,9 +22,9 @@ class AirQualityController(BaseController):
             st.subheader(f"Map of sensors in {borough}")
 
             air_quality_map = self.folium_map.get_folium_map(air_quality_borough_gdf,
-                                                             popup_cols=["Borough", "SiteName"],
-                                                             config_lat=self.geo_service.ldn_centroids[borough].y,
-                                                             config_lng=self.geo_service.ldn_centroids[borough].x,
+                                                             popup_cols=self.config.AIR_POPUPS,
+                                                             lat=self.geo_service.ldn_centroids[borough].y,
+                                                             lng=self.geo_service.ldn_centroids[borough].x,
                                                              zoom=11)
             air_quality_map.save("air_quality_map.html")
             st.components.v1.html(open('air_quality_map.html', 'r').read(), height=500, scrolling=True)

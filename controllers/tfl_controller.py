@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit_keplergl import keplergl_static
 
 from controllers.base_controller import BaseController
 from services.tfl_service import TfLService
@@ -18,9 +17,9 @@ class TfLController(BaseController):
             self.logger.info("Data received from the TfL API")
 
             tfl_map = self.folium_map.get_folium_map(borough_stations,
-                                                     popup_cols=["Borough", "Name", "mode", "line"],
-                                                     config_lat=self.geo_service.ldn_centroids[borough].y,
-                                                     config_lng=self.geo_service.ldn_centroids[borough].x,
+                                                     popup_cols=self.config.TFL_POPUPS,
+                                                     lat=self.geo_service.ldn_centroids[borough].y,
+                                                     lng=self.geo_service.ldn_centroids[borough].x,
                                                      zoom=11)
 
             tfl_map.save("tfl_map.html")

@@ -4,11 +4,13 @@ from services.geospatial_service import GeospatialService
 from utilities.kepler_map import Map
 from utilities.folium_map import FoliumMap
 from utilities.logging import setup_logger
+from config import Config
 
 
 class BaseController(ABC):
 
     def __init__(self):
+        self.config = Config()
         self.geo_service = GeospatialService()
         self.map = Map()
         self.folium_map = FoliumMap()

@@ -22,6 +22,13 @@ class Config:
         self.DEFAULT_ZOOM = 8.5
         self.NUMBER_OF_BOROUGHS = 33
 
+        # POPUP COLUMNS
+        self.CRIME_POPUPS = ["Borough", "category"]
+        self.TFL_POPUPS = ["Borough", "Name", "mode", "line"]
+        self.HEALTH_POPUPS = ["OrganisationName", "Borough", "Address1", "Address2", "Address3", "City", "County",
+                              "Postcode", "Phone", "Email", "Website"]
+        self.AIR_POPUPS = ["Borough", "SiteName"]
+
     @property
     def resources_path(self) -> Path:
         return self.ROOT_PATH.joinpath("resources")

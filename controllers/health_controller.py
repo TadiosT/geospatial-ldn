@@ -16,8 +16,7 @@ class HealthController(BaseController):
             st.title("Health")
             organisation_options = st.selectbox("Choose an NHS organisation: ", ["Hospitals", "Pharmacies", "GP",
                                                                                  "Dentists"])
-            popup_cols = ["OrganisationName", "Borough", "Address1", "Address2", "Address3", "City", "County",
-                          "Postcode", "Phone", "Email", "Website"]
+            popup_cols = self.config.HEALTH_POPUPS
             match organisation_options:
                 case "Pharmacies":
                     # TODO: Fix GP services csv issue
@@ -37,8 +36,8 @@ class HealthController(BaseController):
 
             nhs_map = self.folium_map.get_folium_map(organisation,
                                                      popup_cols=popup_cols,
-                                                     config_lat=self.geo_service.ldn_centroids[borough].y,
-                                                     config_lng=self.geo_service.ldn_centroids[borough].x,
+                                                     lat=self.geo_service.ldn_centroids[borough].y,
+                                                     lng=self.geo_service.ldn_centroids[borough].x,
                                                      zoom=11)
             nhs_map.save("nhs_map.html")
             st.components.v1.html(open('nhs_map.html', 'r').read(), height=500, scrolling=True)
