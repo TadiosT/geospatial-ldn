@@ -2,7 +2,6 @@ from typing import List
 
 import pandas as pd
 import streamlit as st
-from streamlit_keplergl import keplergl_static
 
 from controllers.base_controller import BaseController
 from services.air_quality_service import AirQualityService

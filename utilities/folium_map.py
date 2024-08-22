@@ -9,10 +9,10 @@ class FoliumMap:
     config = Config()
 
     def get_folium_map(self, gdf: gpd.GeoDataFrame, popup_cols: List[str] = ["Borough"],
-                       config_lat: int = config.LDN_CENTRE_LAT, config_lng: int = config.LDN_CENTRE_LNG,
+                       lat: int = config.LDN_CENTRE_LAT, lng: int = config.LDN_CENTRE_LNG,
                        zoom: int = 10) -> folium.Map():
         gdf.set_crs(epsg=4326, inplace=True)
-        m = folium.Map(location=[config_lat, config_lng], zoom_start=zoom, tiles='Cartodb dark_matter')
+        m = folium.Map(location=[lat, lng], zoom_start=zoom, tiles='Cartodb dark_matter')
 
         for i, row in gdf.iterrows():
             folium.CircleMarker(

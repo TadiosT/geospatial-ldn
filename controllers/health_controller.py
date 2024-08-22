@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit_keplergl import keplergl_static
 
 from controllers.base_controller import BaseController
 from services.nhs_service import NHSService
